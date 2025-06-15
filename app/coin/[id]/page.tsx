@@ -4,6 +4,7 @@ import NotFound from '@/app/not-found';
 import { CoinDetail } from '@/types/coindetail';
 import ThemeToggleWrapper from '@/components/ThemeToggleWrapper';
 
+
 async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   try {
     const res = await fetch(

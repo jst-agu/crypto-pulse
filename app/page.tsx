@@ -1,9 +1,10 @@
-'use client';
+
 
 import { useState } from 'react';
 import CurrencyToggle from '@/components/CurrencyToggle';
 import CryptoList from '@/components/CryptoList';
-import DarkModeToggle from '@/components/DarkModeToggle';
+// import DarkModeToggle from '@/components/DarkModeToggle';
+import ThemeToggleWrapper from '@/components/ThemeToggleWrapper';
 
 
 export default function Home() {
@@ -17,7 +18,7 @@ export default function Home() {
 
           <div className="flex gap-4">
             <CurrencyToggle currency={currency} setCurrency={setCurrency} />
-            <DarkModeToggle />
+            <ThemeToggleWrapper />
           </div>
         </header>
 

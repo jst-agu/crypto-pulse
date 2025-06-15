@@ -4,11 +4,6 @@ import NotFound from '@/app/not-found';
 import { CoinDetail } from '@/types/coindetail';
 import ThemeToggleWrapper from '@/components/ThemeToggleWrapper';
 
-interface CoinPageProps {
-  params: {
-    id: string;
-  };
-}
 
 async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   try {
@@ -24,7 +19,7 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   }
 }
 
-export default async function CoinPage({ params }: CoinPageProps) {
+export default async function CoinPage({ params }: { params: { id: string } }) {
   const coin = await fetchCoinDetails(params.id);
   if (!coin) return NotFound();
 
@@ -36,9 +31,11 @@ export default async function CoinPage({ params }: CoinPageProps) {
     <main className="bg-[--color-background] text-[--color-foreground]">
       <div className="min-h-screen bg-white text-black dark:bg-gradient-to-br dark:from-gray-900 dark:to-black dark:text-white px-4 py-10 transition-colors duration-300">
         <div className="max-w-3xl mx-auto">
-          <div className="flex justify-end mb-4">
-            <ThemeToggleWrapper />
-          </div>
+
+            <div className="flex justify-end mb-4">
+                <ThemeToggleWrapper />
+            </div>
+
 
           {/* Header */}
           <div className="flex items-center space-x-4 mb-6">

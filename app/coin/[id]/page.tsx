@@ -32,7 +32,7 @@ export default async function CoinPage({ params }: { params: { id: string } }) {
         <div className="max-w-3xl mx-auto">
 
             <div className="flex justify-end mb-4">
-                {/* <ThemeToggleWrapper /> */}
+                <ThemeToggleWrapper />
             </div>
 
 

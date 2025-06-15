@@ -4,11 +4,6 @@ import NotFound from '@/app/not-found';
 import { CoinDetail } from '@/types/coindetail';
 import ThemeToggleWrapper from '@/components/ThemeToggleWrapper';
 
-type Props = {
-  params: {
-    id: string;
-  };
-}
 
 async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   try {
@@ -24,8 +19,8 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   }
 }
 
-export default async function CoinPage({ params }: Props) {
-  const coin = await fetchCoinDetails(params.id);
+export default async function CoinPage({ params }: { params: { id: string } }) {
+  const coin = await fetchCoinDetails((params).id);
   if (!coin) return NotFound();
 
   const price = coin.market_data.current_price.usd;

@@ -3,26 +3,13 @@ import Link from 'next/link';
 import NotFound from '@/app/not-found';
 import { CoinDetail } from '@/types/coindetail';
 import ThemeToggleWrapper from '@/components/ThemeToggleWrapper';
+import type { NextPage } from 'next';
 
 type Props = {
   params: { id: string };
 };
 
-async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
-  try {
-    const res = await fetch(
-      `https://api.coingecko.com/api/v3/coins/${id}?localization=false&sparkline=true`,
-      { next: { revalidate: 60 } }
-    );
-    const data = await res.json();
-    if (!res.ok || data.error) return null;
-    return data;
-  } catch {
-    return null;
-  }
-}
-
-export default async function CoinPage({ params }: Props) {
+const CoinPage: NextPage<Props> = async ({ params }) => {
   const coin = await fetchCoinDetails(params.id);
   if (!coin) return NotFound();
 
@@ -34,13 +21,9 @@ export default async function CoinPage({ params }: Props) {
     <main className="bg-[--color-background] text-[--color-foreground]">
       <div className="min-h-screen bg-white text-black dark:bg-gradient-to-br dark:from-gray-900 dark:to-black dark:text-white px-4 py-10 transition-colors duration-300">
         <div className="max-w-3xl mx-auto">
-
-            <div className="flex justify-end mb-4">
-                <ThemeToggleWrapper />
-            </div>
-
-
-          {/* Header */}
+          <div className="flex justify-end mb-4">
+            <ThemeToggleWrapper />
+          </div>
           <div className="flex items-center space-x-4 mb-6">
             <Image
               src={coin.image.large}
@@ -58,8 +41,6 @@ export default async function CoinPage({ params }: Props) {
               </p>
             </div>
           </div>
-
-          {/* Price Section */}
           <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-6 shadow-md transition-colors">
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Current Price</p>
             <div className="flex items-center text-2xl font-semibold">
@@ -76,8 +57,6 @@ export default async function CoinPage({ params }: Props) {
               </span>
             </div>
           </div>
-
-          {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow transition-colors">
               <p className="text-sm text-gray-600 dark:text-gray-400">Market Cap</p>
@@ -92,8 +71,6 @@ export default async function CoinPage({ params }: Props) {
               </p>
             </div>
           </div>
-
-          {/* Description */}
           {coin.description.en && (
             <div className="prose prose-sm dark:prose-invert max-w-none">
               <h2 className="text-lg font-semibold mb-2">About {coin.name}</h2>
@@ -104,8 +81,6 @@ export default async function CoinPage({ params }: Props) {
               />
             </div>
           )}
-
-          {/* Back Link */}
           <div className="mt-10 text-center">
             <Link
               href="/"
@@ -118,4 +93,20 @@ export default async function CoinPage({ params }: Props) {
       </div>
     </main>
   );
+};
+
+async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
+  try {
+    const res = await fetch(
+      `https://api.coingecko.com/api/v3/coins/${id}?localization=false&sparkline=true`,
+      { next: { revalidate: 60 } }
+    );
+    const data = await res.json();
+    if (!res.ok || data.error) return null;
+    return data;
+  } catch {
+    return null;
+  }
 }
+
+export default CoinPage;

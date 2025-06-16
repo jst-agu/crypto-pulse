@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { CoinDetail } from '@/types/coindetail';
+import { Coin } from '@/types/coin';
 
-export const fetchCoins = async (currency: 'usd' | 'ngn'): Promise<CoinDetail[]> => {
+export const fetchCoins = async (currency: 'usd' | 'ngn'): Promise<Coin[]> => {
   const url = `https://api.coingecko.com/api/v3/coins/markets`;
   const params = {
     vs_currency: currency,

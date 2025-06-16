@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -21,21 +20,10 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   }
 }
 
-export const metadata: Metadata = {
-  title: 'Coin Details',
-  description: 'Cryptocurrency details page',
-};
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
-
-
-export default async function CoinPage({ params }: PageProps) {
+export default async function CoinPage({ params }: { params: { id: string } }) {
   const coin = await fetchCoinDetails(params.id);
-  if (!coin) return NotFound();
+  if (!coin) return <NotFound />;
 
   const price = coin.market_data.current_price.usd;
   const change = coin.market_data.price_change_percentage_24h;

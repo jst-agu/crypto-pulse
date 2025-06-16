@@ -1,14 +1,11 @@
+
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+// import NotFound from '@/app/not-found';
 import { CoinDetail } from '@/types/coindetail';
 import ThemeToggleWrapper from '@/components/ThemeToggleWrapper';
+import { notFound } from 'next/navigation';
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-};
 
 async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   try {
@@ -24,10 +21,9 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   }
 }
 
-export default async function CoinPage(props: PageProps) {
-  const { id } = props.params;
-  const coin = await fetchCoinDetails(id);
 
+export default async function CoinPage({ params }: { params: { id: string } }) {
+  const coin = await fetchCoinDetails((params).id);
   if (!coin) return notFound();
 
   const price = coin.market_data.current_price.usd;
@@ -38,9 +34,11 @@ export default async function CoinPage(props: PageProps) {
     <main className="bg-[--color-background] text-[--color-foreground]">
       <div className="min-h-screen bg-white text-black dark:bg-gradient-to-br dark:from-gray-900 dark:to-black dark:text-white px-4 py-10 transition-colors duration-300">
         <div className="max-w-3xl mx-auto">
-          <div className="flex justify-end mb-4">
-            <ThemeToggleWrapper />
-          </div>
+
+            <div className="flex justify-end mb-4">
+                <ThemeToggleWrapper />
+            </div>
+
 
           {/* Header */}
           <div className="flex items-center space-x-4 mb-6">
@@ -61,7 +59,7 @@ export default async function CoinPage(props: PageProps) {
             </div>
           </div>
 
-          {/* Price */}
+          {/* Price Section */}
           <div className="bg-gray-100 dark:bg-gray-800 rounded-xl p-6 mb-6 shadow-md transition-colors">
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Current Price</p>
             <div className="flex items-center text-2xl font-semibold">
@@ -79,7 +77,7 @@ export default async function CoinPage(props: PageProps) {
             </div>
           </div>
 
-          {/* Stats */}
+          {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
             <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 shadow transition-colors">
               <p className="text-sm text-gray-600 dark:text-gray-400">Market Cap</p>

@@ -2,7 +2,7 @@
 
 declare global {
   // Override any broken global type trying to mess with route params
-  interface PageProps {
+export interface PageProps {
     params: { id: string };
   }
 }

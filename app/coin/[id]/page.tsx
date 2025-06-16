@@ -20,7 +20,7 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   }
 }
 
-export default async function CoinPage({ params }: { params: Record<string, string> }) {
+export default async function CoinPage({ params }: { params: { id: string } }) {
   const coin = await fetchCoinDetails(params.id);
   if (!coin) return NotFound();
 

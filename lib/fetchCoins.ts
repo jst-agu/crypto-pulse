@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Coin } from '@/types/coin';
 
+export const dynamic = 'force-dynamic';
+
 export const fetchCoins = async (currency: 'usd' | 'ngn'): Promise<Coin[]> => {
   const url = `https://api.coingecko.com/api/v3/coins/markets`;
   const params = {

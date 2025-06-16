@@ -20,7 +20,8 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
 }
 
 export default async function CoinPage({ params }: { params: { id: string } }) {
-  const coin = await fetchCoinDetails(params.id);
+  const { id } = await params;
+  const coin = await fetchCoinDetails(id);
   if (!coin) return NotFound();
 
   const price = coin.market_data.current_price.usd;

@@ -1,5 +1,3 @@
-export const dynamic = 'force-dynamic';
-
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -22,7 +20,7 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
   }
 }
 
-export default async function CoinPage({ params }: { params: { id: string } }) {
+export default async function CoinPage({ params }: { params: Record<string, string> }) {
   const coin = await fetchCoinDetails(params.id);
   if (!coin) return NotFound();
 

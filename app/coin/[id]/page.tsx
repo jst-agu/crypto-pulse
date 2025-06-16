@@ -1,9 +1,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import NotFound from '@/app/not-found';
+// import NotFound from '@/app/not-found';
 import { CoinDetail } from '@/types/coindetail';
 import ThemeToggleWrapper from '@/components/ThemeToggleWrapper';
+import { notFound } from 'next/navigation';
 
 
 async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
@@ -23,7 +24,7 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
 
 export default async function CoinPage({ params }: { params: { id: string } }) {
   const coin = await fetchCoinDetails(params.id);
-  if (!coin) return <NotFound />;
+  if (!coin) return notFound();
 
   const price = coin.market_data.current_price.usd;
   const change = coin.market_data.price_change_percentage_24h;

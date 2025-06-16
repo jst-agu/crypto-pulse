@@ -1,3 +1,6 @@
+export const dynamic = 'force-dynamic';
+
+
 import Image from 'next/image';
 import Link from 'next/link';
 import NotFound from '@/app/not-found';
@@ -20,8 +23,7 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
 }
 
 export default async function CoinPage({ params }: { params: { id: string } }) {
-  const { id } = await params;
-  const coin = await fetchCoinDetails(id);
+  const coin = await fetchCoinDetails(params.id);
   if (!coin) return NotFound();
 
   const price = coin.market_data.current_price.usd;

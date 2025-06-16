@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,6 +20,11 @@ async function fetchCoinDetails(id: string): Promise<CoinDetail | null> {
     return null;
   }
 }
+
+export const metadata: Metadata = {
+  title: 'Coin Details',
+  description: 'Cryptocurrency details page',
+};
 
 interface PageProps {
   params: {
